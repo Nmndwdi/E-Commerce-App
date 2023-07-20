@@ -4,6 +4,7 @@ const bcryptjs = require("bcryptjs");
 
 const authRouter=express.Router();
 
+// SIGN UP
 authRouter.post("/api/signup",async(req,res)=>{
     try 
     {
