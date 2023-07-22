@@ -3,6 +3,8 @@ import 'package:market_infinite/common/widgets/custom_textfield.dart';
 import 'package:market_infinite/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
+import '../services/auth_service.dart';
+
 enum Auth
 {
   signin,
@@ -22,6 +24,8 @@ class _AuthScreenState extends State<AuthScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
 
+  final AuthService authService=AuthService();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -34,6 +38,10 @@ class _AuthScreenState extends State<AuthScreen> {
     _nameController.dispose();
   }
 
+  void signUpUser()
+  {
+    authService.signUpUser(context: context, email: _emailController.text, password: _passwordController.text, name: _nameController.text,);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +104,12 @@ class _AuthScreenState extends State<AuthScreen> {
                             hintText: 'Password',
                           ),
                           const SizedBox(height: 10,),
-                          CustomButton(text: 'Sign Up', onTap: () {},
+                          CustomButton(text: 'Sign Up', onTap: () {
+                            if(_signUpFormKey.currentState!.validate())
+                            {
+                              signUpUser();
+                            }
+                          },
                           ),
                         ],
                       ),
