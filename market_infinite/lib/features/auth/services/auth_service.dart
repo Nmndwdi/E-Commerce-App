@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:market_infinite/common/widgets/bottom_bar.dart';
 import 'package:market_infinite/constants/global_variables.dart';
 import 'package:market_infinite/constants/utils.dart';
 import 'package:market_infinite/features/home/screens/home_screen.dart';
@@ -67,7 +68,7 @@ class AuthService{
         SharedPreferences prefs = await SharedPreferences.getInstance();
         Provider.of<UserProvider>(context,listen: false).setUser(res.body);
         await prefs.setString("x-auth-token", jsonDecode(res.body)["token"]);
-        Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route) => false,);
+        Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false,);
       },
       );
     }

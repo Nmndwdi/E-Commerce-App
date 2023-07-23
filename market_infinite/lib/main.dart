@@ -1,3 +1,4 @@
+import 'package:market_infinite/common/widgets/bottom_bar.dart';
 import 'package:market_infinite/constants/global_variables.dart';
 import 'package:market_infinite/features/auth/screens/auth_screen.dart';
 import 'package:market_infinite/features/auth/services/auth_service.dart';
@@ -49,7 +50,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const HomeScreen() : const AuthScreen(),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const BottomBar() : const AuthScreen(),
     );
   }
 }
