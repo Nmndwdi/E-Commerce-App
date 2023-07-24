@@ -1,4 +1,5 @@
 import 'package:market_infinite/common/widgets/bottom_bar.dart';
+import 'package:market_infinite/features/admin/screens/add_product_screen.dart';
 import 'package:market_infinite/features/auth/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:market_infinite/features/home/screens/home_screen.dart';
@@ -12,16 +13,25 @@ Route<dynamic> generateRoute(RouteSettings routeSettings)
         settings: routeSettings,
         builder: (_) => const AuthScreen(),
       );
-      case HomeScreen.routeName:
+
+    case HomeScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const HomeScreen(),
       );
-      case BottomBar.routeName:
+
+    case BottomBar.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const BottomBar(),
       );
+
+    case AddProductScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AddProductScreen(),
+      );
+
     default:
       return MaterialPageRoute(
         builder: (_)=> const Scaffold(
