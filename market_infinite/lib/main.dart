@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
           elevation: 0,
           iconTheme: IconThemeData(
             color: Colors.black,
-          )
+          ),
         ),
         useMaterial3: true,
       ),
