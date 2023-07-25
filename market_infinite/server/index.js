@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 // IMPORTS FROM FILES
 const authRouter=require("./routes/auth");
+const adminRouter = require("./routes/admin");
 
 // INIT
 const PORT = 3000;
@@ -13,6 +14,7 @@ const DB = "mongodb+srv://naman_dwivedi:Nmndwdi10011001@cluster0.mbozqmm.mongodb
 // MIDDLEWARE
 app.use(express.json());
 app.use(authRouter);
+app.use(adminRouter);
 
 // CONNECTIONS
 mongoose.connect(DB).then(()=>{

@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:market_infinite/common/widgets/custom_button.dart';
-import 'package:market_infinite/common/widgets/custom_textfield.dart';
 import 'package:market_infinite/constants/utils.dart';
+import 'package:market_infinite/features/admin/services/admin_services.dart';
 
+import '../../../common/widgets/custom_button.dart';
+import '../../../common/widgets/custom_textfield.dart';
 import '../../../constants/global_variables.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -18,13 +20,16 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
 
-  TextEditingController productNameController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
-  TextEditingController quantityController = TextEditingController();
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController quantityController = TextEditingController();
+
+  final AdminServices adminServices = AdminServices();
 
   String category = "Mobiles";
   List<File> images = [];
+  final _addProductFormKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -42,6 +47,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
     "Books",
     "Fashion",
   ];
+
+  void sellProduct()
+  {
+    if(_addProductFormKey.currentState!.validate() && images.isNotEmpty)
+    {
+      adminServices.sellProduct(context: context, name: productNameController.text, description: descriptionController.text, price: double.parse(priceController.text), quantity: double.parse(quantityController.text), category: category, images: images,);
+    }
+  }
 
   void selectImages() async{
     var res=await pickImages();
@@ -66,12 +79,28 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _addProductFormKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
                 const SizedBox(height: 20,),
-                GestureDetector(
+                images.isNotEmpty ?
+                  CarouselSlider(
+                    items: images.map((i) 
+                      {
+                      return Builder(
+                        builder: (BuildContext context) => Image.file(i,fit: BoxFit.cover,height: 200,
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    options: CarouselOptions(
+                      viewportFraction: 1,
+                      height: 200,
+                    ),
+                  )
+                : GestureDetector(
                   onTap: selectImages,
                   child: DottedBorder(
                     borderType: BorderType.RRect,
@@ -128,7 +157,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 ),
                 const SizedBox(height: 10,),
-                CustomButton(text: "Sell", onTap: () {},
+                CustomButton(text: "Sell", onTap: sellProduct,
                 ),
               ],
             ),

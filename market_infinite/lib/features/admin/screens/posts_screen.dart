@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:market_infinite/constants/global_variables.dart';
 import 'package:market_infinite/features/admin/screens/add_product_screen.dart';
 
 class PostsScreen extends StatefulWidget {

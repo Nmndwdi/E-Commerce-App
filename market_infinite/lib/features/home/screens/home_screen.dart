@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:market_infinite/features/home/widgets/address_box.dart';
-import 'package:market_infinite/features/home/widgets/carousel.dart';
+import 'package:market_infinite/features/home/widgets/carousel_image.dart';
 import 'package:market_infinite/features/home/widgets/deal_of_day.dart';
 import 'package:market_infinite/features/home/widgets/top_categories.dart';
 
