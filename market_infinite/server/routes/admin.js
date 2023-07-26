@@ -5,6 +5,7 @@ const adminRouter = express.Router();
 const admin = require("../middlewares/admin");
 const Product = require("../models/product");
 
+// Add a product
 adminRouter.post("/admin/add-product",admin,async (req,res) => {
     try {
         const { name ,description, price ,quantity,category,images } = req.body;
