@@ -23,7 +23,6 @@ class Product
       'quantity': quantity,
       'category': category,
       'images': images,
-      'id': id,
     };
   }
 

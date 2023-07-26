@@ -74,7 +74,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-          title: const Text("Add Product",style: TextStyle(color: Colors.black),),
+          title: const Text("Add Product",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500),),
         ),
       ),
       body: SingleChildScrollView(
