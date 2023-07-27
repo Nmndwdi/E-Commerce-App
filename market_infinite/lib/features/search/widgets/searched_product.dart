@@ -8,6 +8,18 @@ class SearchedProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double totalRating = 0;
+    for(int i=0;i<product.rating!.length;i++)
+    {
+      totalRating+=product.rating![i].rating;
+    }
+    double avgRating = 0; 
+    if(totalRating!=0)
+    {
+      avgRating = totalRating / product.rating!.length;
+    }
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -18,7 +30,7 @@ class SearchedProduct extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  Image.network(product.images[0],fit: BoxFit.fitWidth,height: 135,width: 135,),
+                  Image.network(product.images[0],fit: BoxFit.contain,height: 135,width: 135,),
                   Column(
                     children: [
                       Container(
@@ -33,7 +45,7 @@ class SearchedProduct extends StatelessWidget {
                       Container(
                         width: 235,
                         padding: const EdgeInsets.only(left: 10,top: 5),
-                        child: const Stars(rating: 4,),
+                        child: Stars(rating: avgRating,),
                       ),
                       Container(
                         width: 235,
