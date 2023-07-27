@@ -3,6 +3,8 @@ import 'package:market_infinite/constants/global_variables.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:market_infinite/features/account/screens/account_screen.dart';
 import 'package:market_infinite/features/home/screens/home_screen.dart';
+import 'package:market_infinite/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName="/actual-home";
@@ -32,6 +34,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    final userCartLen = context.watch<UserProvider>().user.cart.length;
     return Scaffold(
         body: pages[_page],
         bottomNavigationBar: BottomNavigationBar(
@@ -78,7 +81,7 @@ class _BottomBarState extends State<BottomBar> {
                 )),
               ),
               child: badges.Badge(
-                badgeContent: const Text('2'),
+                badgeContent: Text(userCartLen.toString()),
                 badgeStyle: badges.BadgeStyle(
                   badgeColor: Colors.white,
                   elevation: 0,

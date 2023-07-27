@@ -24,7 +24,7 @@ class AuthService{
   {
     try
     {
-      User user = User(id: '', name: name, password: password,email: email ,address: '', type: 'user', token: '');
+      User user = User(id: '', name: name, password: password,email: email ,address: '', type: 'user', token: '',cart: []);
       
       http.Response res=await http.post(
         Uri.parse('$uri/api/signup') ,

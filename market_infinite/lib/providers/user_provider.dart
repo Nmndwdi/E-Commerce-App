@@ -3,7 +3,7 @@ import 'package:market_infinite/models/user.dart';
 
 class UserProvider extends ChangeNotifier
 {
-  User _user = User(id: '', name: '', email: '', password: '', address: '', type: '', token: '');
+  User _user = User(id: '', name: '', email: '', password: '', address: '', type: '', token: '',cart: []);
 
   User get user => _user;
 
@@ -12,4 +12,11 @@ class UserProvider extends ChangeNotifier
     _user=User.fromJson(user);
     notifyListeners();
   }
+
+  void setUserFromModel(User user)
+  {
+    _user=user;
+    notifyListeners();
+  }
+
 }
