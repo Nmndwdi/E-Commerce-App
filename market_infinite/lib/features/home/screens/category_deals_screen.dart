@@ -73,7 +73,7 @@ import '../../../constants/global_variables.dart';
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.only(left: 15),
               itemCount: productList!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,childAspectRatio: 1.4,mainAxisSpacing: 10), itemBuilder: (context,index){
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,), itemBuilder: (context,index){
               final product=productList![index];
               return GestureDetector(
                 onTap:(){ Navigator.pushNamed(context, ProductDetailScreen.routeName,arguments: product);},
