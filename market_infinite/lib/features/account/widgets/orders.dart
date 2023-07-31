@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:market_infinite/common/widgets/loader.dart';
 import 'package:market_infinite/constants/global_variables.dart';
+import 'package:market_infinite/features/account/services/account_services.dart';
 import 'package:market_infinite/features/account/widgets/single_product.dart';
+
+import '../../../models/order.dart';
 
 class Orders extends StatefulWidget {
   const Orders({super.key});
@@ -11,19 +15,25 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
 
-  List list = [
-    "https://images.unsplash.com/photo-1678434763328-a20bae5940a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1000&q=60",
+  List<Order>? orders;
+  final AccountServices accountServices = AccountServices();
 
-    "https://images.unsplash.com/photo-1678434763328-a20bae5940a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1000&q=60",
+  @override
+  void initState() {
+    super.initState();
+    fetchOrders();
+  }
 
-    "https://images.unsplash.com/photo-1678434763328-a20bae5940a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1000&q=60",
-
-    "https://images.unsplash.com/photo-1678434763328-a20bae5940a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1000&q=60",
-  ];
+  void fetchOrders() async{
+    orders = await accountServices.fetchMyOrders(context: context,);
+    setState(() {
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return orders == null ? Loader() : Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,9 +65,9 @@ class _OrdersState extends State<Orders> {
           padding: const EdgeInsets.only(left: 10,top: 20,right: 0,),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: list.length,
+            itemCount: orders!.length,
             itemBuilder: (context,index) {
-              return SingleProduct(image: list[index],);
+              return SingleProduct(image: orders![index].products[0].images[0],);
             },
           ),
         ),
