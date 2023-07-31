@@ -19,6 +19,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void navigateToSearchScreen(String query)
   {
+    if(query.isEmpty)
+    {
+      throw Exception("please fill the search box!");
+    }
     Navigator.pushNamed(context, SearchScreen.routeName,arguments: query);
   }
 

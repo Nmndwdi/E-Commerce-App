@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:market_infinite/common/widgets/custom_button.dart';
+import 'package:market_infinite/features/address/screens/address_screen.dart';
 import 'package:market_infinite/features/cart/widgets/cart_product.dart';
 import 'package:market_infinite/features/cart/widgets/cart_subtotal.dart';
 import 'package:market_infinite/features/home/widgets/address_box.dart';
@@ -23,9 +24,16 @@ class _CartScreenState extends State<CartScreen> {
     Navigator.pushNamed(context, SearchScreen.routeName,arguments: query);
   }
 
+  void navigateToAddress(int sum)
+  {
+    Navigator.pushNamed(context, AddressScreen.routeName,arguments: sum.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserProvider>().user;
+    int sum=0;
+    user.cart.map((e)=>sum+=e['quantity']*e['product']['price'] as int).toList();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -98,7 +106,7 @@ class _CartScreenState extends State<CartScreen> {
             const CartSubtotal(),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CustomButton(text: "Proceed to Buy (${user.cart.length} items)", onTap: (){},
+              child: CustomButton(text: "Proceed to Buy (${user.cart.length} items)", onTap: ()=> navigateToAddress(sum),
               color: Colors.yellow[600],),
             ),
             const SizedBox(height: 15,),
