@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:market_infinite/common/widgets/custom_button.dart';
+import 'package:market_infinite/features/admin/services/admin_services.dart';
+import 'package:market_infinite/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/global_variables.dart';
 import '../../../models/order.dart';
@@ -15,13 +19,23 @@ class OrderDetailScreen extends StatefulWidget {
 }
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
-
+  final AdminServices adminServices = AdminServices();
   int currentStep = 0;
 
   @override
   void initState() {
     super.initState();
     currentStep = widget.order.status;
+  }
+
+ // <-------- ONLY FOR ADMIN ------>
+  void changeOrderStatus(int status)
+  {
+    adminServices.changeOrderStatus(context: context, status: status+1, onSuccess: () {
+      setState(() {
+        currentStep+=1;
+      });
+    }, order: widget.order);
   }
 
   void navigateToSearchScreen(String query)
@@ -35,6 +49,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<UserProvider>().user;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -189,6 +204,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Stepper(
                   currentStep: currentStep,
                   controlsBuilder: (context, details) {
+                    if(user.type == "admin")
+                    {
+                      return CustomButton(text: "Done", onTap: ()=> changeOrderStatus(details.currentStep));
+                    }
                     return const SizedBox();
                   },
                   steps: [
