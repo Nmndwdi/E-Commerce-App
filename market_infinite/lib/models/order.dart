@@ -10,8 +10,9 @@ class Order{
   final String userId;
   final int orderedAt;
   final int status;
+  final double totalPrice;
 
-  Order({required this.id, required this.products, required this.quantity, required this.address, required this.userId, required this.orderedAt, required this.status});
+  Order({required this.id, required this.products, required this.quantity, required this.address, required this.userId, required this.orderedAt, required this.status,required this.totalPrice});
 
    Map<String,dynamic>toMap()
   {
@@ -23,6 +24,7 @@ class Order{
       'userId': userId,
       'orderedAt': orderedAt,
       'status': status,
+      "totalPrice": totalPrice,
     };
   }
 
@@ -36,6 +38,7 @@ class Order{
       status: map['status']?.toInt ?? 0,
       products: List<Product>.from(map['products']?.map((x)=>Product.fromMap(x['product']))),
       quantity: List<int>.from(map['products']?.map((x)=>x['quantity'])),
+      totalPrice: map['totalPrice']?.toDouble() ?? 0.0,
     );
   }
 

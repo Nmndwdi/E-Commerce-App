@@ -3,6 +3,7 @@ import 'package:market_infinite/common/widgets/loader.dart';
 import 'package:market_infinite/constants/global_variables.dart';
 import 'package:market_infinite/features/account/services/account_services.dart';
 import 'package:market_infinite/features/account/widgets/single_product.dart';
+import 'package:market_infinite/features/order_details/screens/order_details.dart';
 
 import '../../../models/order.dart';
 
@@ -67,7 +68,12 @@ class _OrdersState extends State<Orders> {
             scrollDirection: Axis.horizontal,
             itemCount: orders!.length,
             itemBuilder: (context,index) {
-              return SingleProduct(image: orders![index].products[0].images[0],);
+              return GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(context, OrderDetailScreen.routeName,
+                  arguments: orders![index],);
+                },
+                child: SingleProduct(image: orders![index].products[0].images[0],));
             },
           ),
         ),

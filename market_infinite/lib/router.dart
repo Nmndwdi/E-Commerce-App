@@ -5,8 +5,10 @@ import 'package:market_infinite/features/auth/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:market_infinite/features/home/screens/category_deals_screen.dart';
 import 'package:market_infinite/features/home/screens/home_screen.dart';
+import 'package:market_infinite/features/order_details/screens/order_details.dart';
 import 'package:market_infinite/features/product_details/screens/product_details_screen.dart';
 import 'package:market_infinite/features/search/screens/search_screen.dart';
+import 'package:market_infinite/models/order.dart';
 import 'package:market_infinite/models/product.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings)
@@ -70,6 +72,15 @@ Route<dynamic> generateRoute(RouteSettings routeSettings)
         settings: routeSettings,
         builder: (_) => AddressScreen(
           totalAmount: totalAmount,
+        ),
+      );
+
+      case OrderDetailScreen.routeName:
+      var order= routeSettings.arguments as Order;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => OrderDetailScreen(
+          order: order,
         ),
       );
 
