@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:market_infinite/features/admin/screens/analytics_screen.dart';
 import 'package:market_infinite/features/admin/screens/orders_screen.dart';
 import 'package:market_infinite/features/admin/screens/posts_screen.dart';
 
@@ -18,9 +19,7 @@ class _AdminScreenState extends State<AdminScreen> {
 
   List<Widget> pages = [
     const PostsScreen(),
-    const Center(
-      child: Text("Analytics Page"),
-    ),
+    const AnalyticsScreen(),
     const OrdersScreen(),
   ];
 

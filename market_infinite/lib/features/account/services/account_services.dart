@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:market_infinite/features/auth/screens/auth_screen.dart';
 import 'package:market_infinite/models/order.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/error_handling.dart';
 import '../../../constants/global_variables.dart';
@@ -37,4 +39,19 @@ class AccountServices{
     }
     return orderList;
   }
+
+  void logOut(BuildContext context) async
+  {
+    try
+    {
+      SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
+      await sharedPreferences.setString("x-auth-token", '');
+      Navigator.pushNamedAndRemoveUntil(context, AuthScreen.routeName, (route) => false);
+    }
+    catch(e)
+    {
+      showSnackBar(context, e.toString());
+    }
+  }
+
 }
